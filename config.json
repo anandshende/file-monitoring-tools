@@ -1,0 +1,6 @@
+{
+  "destinationPath": "D:\\Anand\\Repos\\Products\\file-monitoring-tools\\dummyFolder",
+  "sourcePath": "C:\\Users\\lenovo\\Downloads",
+  "basePath": "localhost:3001",
+  "tailDirFileName": "tail-dir.json"
+}
