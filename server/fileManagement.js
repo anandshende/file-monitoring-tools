@@ -5,23 +5,20 @@ const tailDir = require('./tail-dir');
 var fileManagement = {};
 var tailList = [];
 
-fileManagement.getNewFileNames = () => {
-    return new Promise((resolve, reject) => {
-        tailList = tailDir.getTailList();
+fileManagement.copyNewFiles = () => {
+    tailList = tailDir.getTailList();
 
-        fs.readdir(config.sourcePath, (err, files) => {
-            if (err) reject({ statusCode: 501, msg: err });
-            var newFiles = files.filter((file) => {
-                var extArray = file.split('.');
-                var ext = extArray[extArray.length - 1];
-                if (ext == 'jpg' || ext == 'jpeg' || ext == 'png' || ext == 'bmp') {
-                    return !tailList.find((tailFile) => tailFile === file)
-                }
-                return false;
-            });
-            // console.log(newFiles, JSON.stringify(newFiles));
-            resolve(newFiles);
+    fs.readdir(config.sourcePath, (err, files) => {
+        if (err) console.error(err);
+        var newFiles = files.filter((file) => {
+            var extArray = file.split('.');
+            var ext = extArray[extArray.length - 1];
+            if (ext == 'jpg' || ext == 'jpeg' || ext == 'png' || ext == 'bmp') {
+                return !tailList.find((tailFile) => tailFile === file)
+            }
+            return false;
         });
+        fileManagement.copyFiles(newFiles);
     });
 };
 
